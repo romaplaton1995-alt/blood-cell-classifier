@@ -1,0 +1,38 @@
+services:
+  check:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blood-cell-check
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app  # Надёжная страховка
+    command:
+      - /bin/sh
+      - -c
+      - |
+        python -u scripts/download_weight.py &&
+        python -u -m src.predict
+    profiles: ["check"]
+
+  web:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: blood-cell-web
+      ports:
+        - "7860:7860"  # Пробрасываем порт для браузера
+      environment:
+        - PYTHONUNBUFFERED=1
+        - PYTHONPATH=/app
+        - GRADIO_SERVER_NAME=0.0.0.0
+        - GRADIO_SERVER_PORT=7860
+      volumes:
+        - ./models:/app/models  # Монтируем папку моделей (чтобы не скачивать каждый раз)
+      command:
+        - /bin/sh
+        - -c
+        - |
+          python -u scripts/download_weight.py && 
+          python -u -m src.app
+      profiles: ["web"]

@@ -1,0 +1,13 @@
+# Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Data processing
+numpy>=1.24.0
+pillow>=10.0.0
+
+# UI (для будущего веб-интерфейса)
+gradio>=4.0.0
+
+# Utils
+tqdm>=4.65.0
