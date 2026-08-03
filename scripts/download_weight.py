@@ -6,7 +6,7 @@ import urllib.error
 from pathlib import Path
 
 # ⚠️ ВСТАВЬТЕ СЮДА ПРАВИЛЬНУЮ ССЫЛКУ (без точки после v!):
-MODEL_URL = "https://github.com/romaplaton1995-alt/blood-cell-classifier/releases/download/v1.0.0/release_model.pth"
+MODEL_URL = "https://github.com/romaplaton1995-alt/blood-cell-classifier/releases/download/v2.0.0/best_medical_model.pth"
 
 MODELS_DIR = Path("/app/models")
 MODEL_PATH = MODELS_DIR / "model.pth"

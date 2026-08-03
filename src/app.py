@@ -56,7 +56,7 @@ def _classify(img):
 def create_ui():
     """Сборка интерфейса Gradio"""
     with gr.Blocks(title="Blood Cell Classifier", theme=gr.themes.Soft()) as demo:
-        gr.Markdown("## 🩸 Medical Blood Cell Classifier\n*ResNet50 • 11 классов • 94.8% F1*")
+        gr.Markdown("## 🩸 Medical Blood Cell Classifier\n*ResNet50 • 11 классов • F1: 92.3% • Recall бластов: 97%*")
         with gr.Row():
             with gr.Column():
                 inp = gr.Image(type="pil", label="Загрузите изображение")

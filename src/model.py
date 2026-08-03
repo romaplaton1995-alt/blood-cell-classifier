@@ -15,6 +15,7 @@ CLASSES = [
 # Классы, требующие особого внимания (опухолевые/незрелые формы)
 PATHOLOGICAL = ["Бласты", "Миелоциты", "Метамиелоциты"]
 
+CLASS_NAMES = CLASSES
 
 def get_model(num_classes=11, device="cpu"):
     """Создаёт и настраивает модель ResNet50"""
@@ -28,9 +29,11 @@ def get_model(num_classes=11, device="cpu"):
 def load_model(path, device="cpu"):
     """Загружает веса модели с диска"""
     model = get_model(num_classes=11, device=device)
-    state_dict = torch.load(path, map_location=device, weights_only=True)
-    model.load_state_dict(state_dict)
-    model.eval()  # режим инференса (используем предобученную модель)
+    ckpt = torch.load(path, map_location=device, weights_only=True)
+    if isinstance(ckpt, dict) and "model_state_dict" in ckpt:  # новый формат чекпоинта
+        ckpt = ckpt["model_state_dict"]
+    model.load_state_dict(ckpt)
+    model.eval()
     return model
 
 
